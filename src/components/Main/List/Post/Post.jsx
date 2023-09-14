@@ -7,7 +7,6 @@ import PostDate from './PostDate/PostDate';
 
 export const Post = ({postData}) => {
   const {title, author, ups, date} = postData;
-  console.log('title, author, ups, date:', {title, author, ups, date});
 
   return (
     <li className={style.post}>

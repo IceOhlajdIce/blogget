@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const PostRating = ({ups}) => (
   <div className={style.rating}>
     <button className={style.up} aria-label='Повысить рейтинг'/>
-    <p>{ups}</p>
+    <p className={style.ups}>{ups}</p>
     <button className={style.down} aria-label='Поизить рейтинг'/>
   </div>
 );
