@@ -1,5 +1,5 @@
 import style from './Auth.module.css';
-import {bool} from 'prop-types';
+import PropTypes from 'prop-types';
 
 export const Auth = ({auth}) => (
   <button className={style.button}>
@@ -32,5 +32,5 @@ export const Auth = ({auth}) => (
 );
 
 Auth.propTypes = {
-  auth: bool,
+  auth: PropTypes.bool,
 };
