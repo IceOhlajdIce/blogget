@@ -3,18 +3,13 @@ import style from './Tabs.module.css';
 import {assignId} from '../../../utils/generateRandomId';
 import {debouceRaf} from '../../../utils/debouce';
 import {Text} from '../../../UI/Text';
-
-import {ReactComponent as ArrowIcon} from './img/arrow.svg';
-import {ReactComponent as HomeIcon} from './img/home.svg';
-import {ReactComponent as TopIcon} from './img/top.svg';
-import {ReactComponent as BestIcon} from './img/best.svg';
-import {ReactComponent as HotIcon} from './img/hot.svg';
+import {SVG} from '../../../UI/SVG';
 
 const LIST = [
-  {value: 'Главная', Icon: HomeIcon},
-  {value: 'Топ', Icon: TopIcon},
-  {value: 'Лучшие', Icon: BestIcon},
-  {value: 'Горячие', Icon: HotIcon},
+  {value: 'Главная', Icon: 'HomeIcon'},
+  {value: 'Топ', Icon: 'TopIcon'},
+  {value: 'Лучшие', Icon: 'BestIcon'},
+  {value: 'Горячие', Icon: 'HotIcon'},
 ].map(assignId);
 
 export const Tabs = () => {
@@ -46,7 +41,7 @@ export const Tabs = () => {
           <button className={style.btn}
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
             <Text As='p' size={18}>{activeMenu}</Text>
-            <ArrowIcon width={15} height={15}/>
+            <SVG icon='ArrowIcon' width='15' height='15'></SVG>
           </button>
         </div>
       )}
@@ -56,7 +51,7 @@ export const Tabs = () => {
             <li className={style.item} key={id}>
               <button className={style.btn} onClick={() => setActiveMenu(value)}>
                 <Text As='p' size={18}>{value}</Text>
-                {Icon && <Icon width={30} height={30} />}
+                {Icon && <SVG icon={Icon} width='30' height='30' />}
               </button>
             </li>
           ))}
