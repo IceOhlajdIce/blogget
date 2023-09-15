@@ -9,6 +9,7 @@ export const Text = (props) => {
     size,
     tsize,
     dsize,
+    fontWeight,
     className,
     children,
     href,
@@ -18,6 +19,7 @@ export const Text = (props) => {
   const classes = classNames(
     className,
     style[color],
+    style[fontWeight],
     {[style.center]: center},
     {[style[`fs${size}`]]: size},
     {[style[`fst${tsize}`]]: tsize},
@@ -33,6 +35,7 @@ Text.propTypes = {
   size: PropTypes.number,
   tsize: PropTypes.number,
   dsize: PropTypes.number,
+  fontWeight: PropTypes.string,
   className: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.string,
