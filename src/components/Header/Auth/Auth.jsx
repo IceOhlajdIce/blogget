@@ -1,9 +1,9 @@
 import style from './Auth.module.css';
-import {SVG} from '../../../UI/SVG';
-import PropTypes from 'prop-types';
-import {urlAuth} from '../../../api/auth';
-import {Text} from '../../../UI/Text';
 import {useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
+import {Text} from '../../../UI/Text';
+import {SVG} from '../../../UI/SVG';
+import {urlAuth} from '../../../api/auth';
 import {URL_API} from '../../../api/const';
 
 export const Auth = ({token}) => {
@@ -24,7 +24,6 @@ export const Auth = ({token}) => {
         setAuth({name, img});
       })
       .catch((err) => {
-        console.err(err.status);
         setAuth({});
         if (err.status === 401) {
           localStorage.removeItem('bearer');
@@ -46,8 +45,9 @@ export const Auth = ({token}) => {
             <img className={style.img} src={auth.img} title={auth.name}
               alt={`Аватар ${auth.name}`} />
           </button>
-          {isLogout && <button className={style.logout} onClick={delToken}>
-          Выйти
+          {isLogout &&
+          <button className={style.logout} onClick={delToken}>
+            Выйти
           </button>}
         </>
       ) : (

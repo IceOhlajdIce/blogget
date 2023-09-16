@@ -1,6 +1,6 @@
 import style from './PostContent.module.css';
-import Button from './Button/Button';
 import PropTypes from 'prop-types';
+import Button from './Button/Button';
 import {Text} from '../../../../../UI/Text';
 
 const PostContent = ({title, author}) => (

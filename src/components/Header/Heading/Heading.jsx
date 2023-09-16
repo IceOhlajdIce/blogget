@@ -1,6 +1,6 @@
-import {Text} from '../../../UI/Text';
 import style from './Heading.module.css';
 import PropTypes from 'prop-types';
+import {Text} from '../../../UI/Text';
 
 export const Heading = ({text}) => (
   <Text As='h1' size={22} tsize={24} center className={style.heading}>

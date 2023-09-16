@@ -1,6 +1,6 @@
-import {Text} from '../../../../../UI/Text';
 import style from './PostRating.module.css';
 import PropTypes from 'prop-types';
+import {Text} from '../../../../../UI/Text';
 
 const PostRating = ({ups}) => (
   <div className={style.rating}>

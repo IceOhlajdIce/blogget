@@ -27,6 +27,14 @@ export const List = () => {
       date: '2022-03-04T12:45:00.000Z',
       id: '454',
     },
+    {
+      thumbnail: '',
+      title: 'Title4',
+      author: 'Nickname4',
+      ups: 14,
+      date: '2023-10-01T23:45:00.000Z',
+      id: '567',
+    },
   ];
 
   return (

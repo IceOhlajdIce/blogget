@@ -1,9 +1,9 @@
 import {useEffect, useState} from 'react';
 import style from './Tabs.module.css';
-import {assignId} from '../../../utils/generateRandomId';
-import {debouceRaf} from '../../../utils/debouce';
 import {Text} from '../../../UI/Text';
 import {SVG} from '../../../UI/SVG';
+import {assignId} from '../../../utils/generateRandomId';
+import {debouceRaf} from '../../../utils/debouce';
 
 const LIST = [
   {value: 'Главная', Icon: 'HomeIcon'},
