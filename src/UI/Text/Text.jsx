@@ -41,6 +41,7 @@ Text.propTypes = {
     PropTypes.string,
     PropTypes.object,
     PropTypes.array,
+    PropTypes.node,
   ]),
   href: PropTypes.string,
   center: PropTypes.bool,
