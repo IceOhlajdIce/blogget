@@ -1,40 +1,18 @@
 import style from './Auth.module.css';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Text} from '../../../UI/Text';
 import {SVG} from '../../../UI/SVG';
 import {urlAuth} from '../../../api/auth';
-import {URL_API} from '../../../api/const';
+import {useAuth} from '../../../hooks/useAuth';
 
-export const Auth = ({token}) => {
-  const [auth, setAuth] = useState({});
+export const Auth = ({token, delToken}) => {
+  const [auth, clearAuth] = useAuth(token);
   const [isLogout, setIsLogout] = useState(false);
 
-  useEffect(() => {
-    if (!token) return;
-
-    fetch(`${URL_API}/api/v1/me`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then(({name, icon_img: iconImg}) => {
-        const img = iconImg.replace(/\?.*$/, '');
-        setAuth({name, img});
-      })
-      .catch((err) => {
-        setAuth({});
-        if (err.status === 401) {
-          localStorage.removeItem('bearer');
-        }
-      });
-  }, [token]);
-
-  const delToken = () => {
-    setIsLogout(false);
-    setAuth({});
-    localStorage.removeItem('bearer');
+  const logout = () => {
+    clearAuth();
+    delToken();
   };
 
   return (
@@ -46,7 +24,7 @@ export const Auth = ({token}) => {
               alt={`Аватар ${auth.name}`} />
           </button>
           {isLogout &&
-          <button className={style.logout} onClick={delToken}>
+          <button className={style.logout} onClick={logout}>
             Выйти
           </button>}
         </>
@@ -65,4 +43,5 @@ export const Auth = ({token}) => {
 
 Auth.propTypes = {
   token: PropTypes.string,
+  delToken: PropTypes.func,
 };
