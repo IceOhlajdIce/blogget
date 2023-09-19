@@ -30,6 +30,7 @@ export const useAuth = () => {
   const clearAuth = () => {
     setAuth({});
     delToken();
+    location.href = '/';
   };
 
   return [auth, clearAuth];
