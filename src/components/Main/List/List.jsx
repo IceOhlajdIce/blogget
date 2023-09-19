@@ -1,41 +1,10 @@
+import {useContext} from 'react';
 import style from './List.module.css';
 import Post from './Post';
+import {postsContext} from '../../../context/postsContext';
 
 export const List = () => {
-  const postsData = [
-    {
-      thumbnail: '',
-      title: 'Title1',
-      author: 'Nickname1',
-      ups: 24,
-      date: '2022-02-24T09:45:00.000Z',
-      id: '123',
-    },
-    {
-      thumbnail: '',
-      title: 'Title2',
-      author: 'Nickname2',
-      ups: 34,
-      date: '2022-05-12T04:22:00.000Z',
-      id: '234',
-    },
-    {
-      thumbnail: '',
-      title: 'Title3',
-      author: 'Nickname3',
-      ups: 44,
-      date: '2022-03-04T12:45:00.000Z',
-      id: '454',
-    },
-    {
-      thumbnail: '',
-      title: 'Title4',
-      author: 'Nickname4',
-      ups: 14,
-      date: '2023-10-01T23:45:00.000Z',
-      id: '567',
-    },
-  ];
+  const postsData = useContext(postsContext);
 
   return (
     <ul className={style.list}>

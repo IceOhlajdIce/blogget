@@ -2,11 +2,13 @@ import style from './PostLogo.module.css';
 import PropTypes from 'prop-types';
 import notphoto from './img/notphoto.jpg';
 
-const PostLogo = ({title}) => (
-  <img className={style.img} src={notphoto} alt={title} />
+const PostLogo = ({thumbnail, title}) => (
+  <img className={style.img}
+    src={thumbnail ? thumbnail : notphoto} alt={title} />
 );
 
 PostLogo.propTypes = {
+  thumbnail: PropTypes.string,
   title: PropTypes.string,
 };
 

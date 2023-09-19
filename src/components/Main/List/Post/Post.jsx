@@ -6,11 +6,11 @@ import PostRating from './PostRating/PostRating';
 import PostDate from './PostDate/PostDate';
 
 export const Post = ({postData}) => {
-  const {title, author, ups, date} = postData;
+  const {thumbnail, title, author, ups, date} = postData;
 
   return (
     <li className={style.post}>
-      <PostLogo title={title}/>
+      <PostLogo thumbnail={thumbnail} title={title}/>
       <PostContent title={title} author={author} />
       <PostRating ups={ups} />
       <PostDate date={date} />

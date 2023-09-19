@@ -21,7 +21,9 @@ export const useAuth = () => {
       })
       .catch((err) => {
         setAuth({});
-        delToken();
+        if (err.status === 401) {
+          delToken();
+        }
       });
   }, [token]);
 

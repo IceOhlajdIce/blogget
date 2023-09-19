@@ -8,8 +8,7 @@
     grid-template-columns: 30px 2fr 30px;
     align-items: center;
     gap: 15px;
-    }
-
+}
 
 @media (min-width: 768px) {
     .header {
