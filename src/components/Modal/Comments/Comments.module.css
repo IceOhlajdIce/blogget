@@ -1,0 +1,10 @@
+.item {
+    margin-top: 25px;
+    padding: 0 30px;
+}
+
+.wrapper {
+    display: flex;
+    gap: 30px;
+    margin-top: 5px;
+}
