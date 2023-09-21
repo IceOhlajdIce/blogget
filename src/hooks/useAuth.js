@@ -1,10 +1,18 @@
-import {useState, useEffect, useContext} from 'react';
+import {useState, useEffect} from 'react';
 import {URL_API} from '../api/const';
-import {tokenContext} from '../context/tokenContext';
+import {useDispatch, useSelector} from 'react-redux';
+import {deleteToken} from '../store/store';
 
 export const useAuth = () => {
   const [auth, setAuth] = useState({});
-  const {token, delToken} = useContext(tokenContext);
+  const token = useSelector(state => state.token);
+  const dispatch = useDispatch();
+
+  const clearAuth = () => {
+    setAuth({});
+    dispatch(deleteToken());
+    location.href = '/';
+  };
 
   useEffect(() => {
     if (!token) return;
@@ -20,18 +28,11 @@ export const useAuth = () => {
         setAuth({name, img});
       })
       .catch((err) => {
-        setAuth({});
-        if (err.status === 401) {
-          delToken();
+        if (err.message === '401') {
+          clearAuth();
         }
       });
   }, [token]);
-
-  const clearAuth = () => {
-    setAuth({});
-    delToken();
-    location.href = '/';
-  };
 
   return [auth, clearAuth];
 };
