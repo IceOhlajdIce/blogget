@@ -7,9 +7,9 @@ export const CommentContextProvider = ({children}) => {
   const [value, setValue] = React.useState('');
 
   return (
-    <CommentContextProvider value={{value, setValue}}>
+    <commentContext.Provider value={{value, setValue}}>
       {children}
-    </CommentContextProvider>
+    </commentContext.Provider>
   );
 };
 

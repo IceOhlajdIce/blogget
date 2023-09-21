@@ -1,18 +1,25 @@
 import style from './FormComment.module.css';
-import {useRef} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {updateComment} from '../../../store/store';
 
 export const FormComment = () => {
-  const areaRef = useRef(null);
+  const value = useSelector(state => state.comment);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(areaRef.current.value);
+    console.log(value);
+  };
+
+  const handleChange = (e) => {
+    dispatch(updateComment(e.target.value));
   };
 
   return (
     <form className={style.form} onSubmit={handleSubmit}>
       <div>
-        <textarea cols='80' ref={areaRef} autoFocus></textarea>
+        <textarea cols='80' value={value} onChange={handleChange} autoFocus>
+        </textarea>
       </div>
       <button>Отправить</button>
     </form>
