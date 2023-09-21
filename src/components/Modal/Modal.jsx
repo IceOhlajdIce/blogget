@@ -14,17 +14,23 @@ export const Modal = ({id, setClose}) => {
 
   const handleClick = (e) => {
     const target = e.target;
-    if (target === overlayRef.current || e.keyCode === 27) {
+    if (target === overlayRef.current) {
+      setClose();
+    }
+  };
+
+  const handleEsc = (e) => {
+    if (e.keyCode === 27) {
       setClose();
     }
   };
 
   useEffect(() => {
     document.addEventListener('click', handleClick);
-    document.addEventListener('keydown', handleClick);
+    document.addEventListener('keydown', handleEsc);
     return () => {
       document.removeEventListener('click', handleClick);
-      document.removeEventListener('keydown', handleClick);
+      document.removeEventListener('keydown', handleEsc);
     };
   }, []);
 
