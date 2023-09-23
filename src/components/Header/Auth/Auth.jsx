@@ -1,12 +1,13 @@
 import style from './Auth.module.css';
-import {useContext, useState} from 'react';
+import {useState} from 'react';
 import {Text} from '../../../UI/Text';
 import {SVG} from '../../../UI/SVG';
 import {urlAuth} from '../../../api/auth';
-import {authContext} from '../../../context/authContext';
+import {useAuth} from '../../../hooks/useAuth';
+import AuthLoader from './AuthLoader/';
 
 export const Auth = () => {
-  const {auth, clearAuth} = useContext(authContext);
+  const [auth, loading, clearAuth] = useAuth();
   const [isLogout, setIsLogout] = useState(false);
 
   const logout = () => {
@@ -15,7 +16,9 @@ export const Auth = () => {
 
   return (
     <div className={style.container}>
-      { auth.name ? (
+      {loading ? (
+          <AuthLoader />
+        ) : auth.name ? (
         <>
           <button className={style.btn} onClick={() => setIsLogout(!isLogout)}>
             <img className={style.img} src={auth.img} title={auth.name}
