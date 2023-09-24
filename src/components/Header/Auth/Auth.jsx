@@ -4,7 +4,7 @@ import {Text} from '../../../UI/Text';
 import {SVG} from '../../../UI/SVG';
 import {urlAuth} from '../../../api/auth';
 import {useAuth} from '../../../hooks/useAuth';
-import AuthLoader from './AuthLoader/';
+import {Preloader} from '../../../UI/Preloader/Preloader';
 
 export const Auth = () => {
   const [auth, loading, clearAuth] = useAuth();
@@ -17,7 +17,7 @@ export const Auth = () => {
   return (
     <div className={style.container}>
       {loading ? (
-          <AuthLoader />
+          <Preloader />
         ) : auth.name ? (
         <>
           <button className={style.btn} onClick={() => setIsLogout(!isLogout)}>
