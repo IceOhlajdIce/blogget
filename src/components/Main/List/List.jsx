@@ -1,17 +1,20 @@
-import {useContext} from 'react';
+import {usePosts} from '../../../hooks/usePosts';
 import style from './List.module.css';
 import Post from './Post';
-import {postsContext} from '../../../context/postsContext';
 
 export const List = () => {
-  const postsData = useContext(postsContext);
+  const [data, loading] = usePosts();
 
   return (
     <ul className={style.list}>
       {
-        postsData.map((postData) => (
-          <Post key={postData.id} postData={postData} />
-        ))
+        loading ? (<p>Loading...</p>) : (
+          data.length > 0 ? (
+            data.map((postData) => (
+              <Post key={postData.id} postData={postData} />
+            ))
+          ) : 'Please, login first...'
+        )
       }
     </ul>
   );

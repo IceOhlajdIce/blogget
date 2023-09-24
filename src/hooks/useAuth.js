@@ -6,9 +6,10 @@ import {
 } from '../store/auth/action';
 
 export const useAuth = () => {
-  const auth = useSelector(state => state.authReducer.data);
   const token = useSelector(state => state.tokenReducer.token);
+  const auth = useSelector(state => state.authReducer.data);
   const loading = useSelector(state => state.authReducer.loading);
+
   const dispatch = useDispatch();
 
   const clearAuth = () => {
