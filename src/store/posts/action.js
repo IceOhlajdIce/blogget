@@ -4,6 +4,8 @@ import axios from 'axios';
 export const POSTS_REQUEST = 'POSTS_REQUEST';
 export const POSTS_REQUEST_SUCCESS = 'POSTS_REQUEST_SUCCESS';
 export const POSTS_REQUEST_ERROR = 'POSTS_REQUEST_ERROR';
+export const POSTS_REQUEST_SUCCESS_AFTER = 'POSTS_REQUEST_SUCCESS_AFTER';
+export const CHANGE_PAGE = 'CHANGE_PAGE';
 
 export const postshRequest = () => ({
   type: POSTS_REQUEST,
@@ -11,7 +13,14 @@ export const postshRequest = () => ({
 
 export const postshRequestSuccess = (data) => ({
   type: POSTS_REQUEST_SUCCESS,
-  data,
+  data: data.children,
+  after: data.after,
+});
+
+export const postshRequestSuccessAfter = (data) => ({
+  type: POSTS_REQUEST_SUCCESS_AFTER,
+  data: data.children,
+  after: data.after,
 });
 
 export const postshRequestError = (error) => ({
@@ -19,33 +28,37 @@ export const postshRequestError = (error) => ({
   error,
 });
 
-export const postsRequestAsync = () => (dispatch, getState) => {
+export const changePage = (page) => ({
+  type: CHANGE_PAGE,
+  page,
+});
+
+export const postsRequestAsync = (newPage) => (dispatch, getState) => {
+  let page = getState().postsReducer.page;
+  if (newPage) {
+    page = newPage;
+    dispatch(changePage(page));
+  }
   const token = getState().tokenReducer.token;
-  if (!token) return;
-  const res = [];
+  const after = getState().postsReducer.after;
+  const loading = getState().postsReducer.loading;
+  const isLast = getState().postsReducer.isLast;
+
+  if (!token || loading || isLast) return;
 
   dispatch(postshRequest());
 
-  axios(`${URL_API}/best`, {
+  axios(`${URL_API}/${page}?limit=10&${after ? `after=${after}` : ''}`, {
     headers: {
       Authorization: `bearer ${token}`,
     },
   })
     .then(({data}) => {
-      const postsData = data.data.children;
-      postsData.forEach((element) => {
-        const img = element.data.thumbnail.replace(/\?.*$/, '');
-        const postData = {
-          thumbnail: img.startsWith('https:') ? img : '',
-          title: element.data.title,
-          author: element.data.author,
-          ups: element.data.ups,
-          date: element.data.created,
-          id: element.data.id,
-        };
-        res.push(postData);
-      });
-      dispatch(postshRequestSuccess(res));
+      if (after) {
+        dispatch(postshRequestSuccessAfter(data.data));
+      } else {
+        dispatch(postshRequestSuccess(data.data));
+      }
     })
     .catch((err) => {
       dispatch(postshRequestError(err.message));

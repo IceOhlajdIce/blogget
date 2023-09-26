@@ -6,7 +6,7 @@ import PostRating from './PostRating/PostRating';
 import PostDate from './PostDate/PostDate';
 
 export const Post = ({postData}) => {
-  const {thumbnail, title, author, ups, date, id} = postData;
+  const {thumbnail, title, author, ups, created: date, id} = postData;
 
   return (
     <li className={style.post}>

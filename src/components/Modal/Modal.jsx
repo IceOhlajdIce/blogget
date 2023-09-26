@@ -7,8 +7,11 @@ import {Comments} from './Comments/Comments';
 import {FormComment} from './FormComment/FormComment';
 import {useEffect, useRef, useState} from 'react';
 import {Preloader} from '../../UI/Preloader/Preloader';
+import {useNavigate, useParams} from 'react-router-dom';
 
-export const Modal = ({id, setClose}) => {
+export const Modal = () => {
+  const {id, page} = useParams();
+  const navigate = useNavigate();
   const [post, comments, status] = useCommentsData(id);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const overlayRef = useRef(null);
@@ -16,13 +19,13 @@ export const Modal = ({id, setClose}) => {
   const handleClick = (e) => {
     const target = e.target;
     if (target === overlayRef.current) {
-      setClose();
+      navigate(`/category/${page}`);
     }
   };
 
   const handleEsc = (e) => {
     if (e.keyCode === 27) {
-      setClose();
+      navigate(`/category/${page}`);
     }
   };
 
@@ -61,12 +64,12 @@ export const Modal = ({id, setClose}) => {
               {isFormOpen && <FormComment />}
               {
                 comments.length ?
-                (comments.map(({data}) => (
+                (comments.map(({data}) => data.body && (
                   <Comments
                     key={data.id}
                     comment={data.body}
                     author={data.author}
-                    date={data.created ? data.created : 0}
+                    date={data.created}
                   />
                 ))) :
                   <p>Нет комментариев</p>
@@ -75,7 +78,8 @@ export const Modal = ({id, setClose}) => {
           </>
         )}
 
-        <button className={style.close} onClick={setClose}>
+        <button className={style.close}
+          onClick={() => navigate(`/category/${page}`)}>
           <CloseIcon />
         </button>
       </div>

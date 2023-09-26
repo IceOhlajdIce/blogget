@@ -32,8 +32,6 @@ export const commentsRequestAsync = (id) => (dispatch, getState) => {
     .then(({data}) => {
       const postData = data[0].data.children;
       const comments = data[1].data.children;
-      // setPost(postData[0].data);
-      // setComments(commentsData);
       const post = postData[0].data;
       dispatch(commentshRequestSuccess(post, comments));
     })
