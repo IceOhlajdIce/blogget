@@ -21,6 +21,10 @@ export const Main = () => (
           <Route path='post/:id' element={<Modal />} />
         </Route>
         <Route path="*" element={<div className={style.text}>404</div>} />
+        <Route path="/auth"
+          element={<div className={style.auth}>
+            <h3>Выберите категорию</h3>
+          </div>} />
       </Routes>
     </Layout>
   </main>
