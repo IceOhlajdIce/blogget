@@ -1,41 +1,24 @@
 import {URL_API} from '../../api/const';
 import axios from 'axios';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 
-export const COMMENTS_REQUEST = 'COMMENTS_REQUEST';
-export const COMMENTS_REQUEST_SUCCESS = 'COMMENTS_REQUEST_SUCCESS';
-export const COMMENTS_REQUEST_ERROR = 'COMMENTS_REQUEST_ERROR';
+export const commentsRequestAsync = createAsyncThunk(
+  'comments/fetch',
+  (id, {getState}) => {
+    const token = getState().tokenReducer.token;
+    if (!token) return;
 
-export const commentshRequest = () => ({
-  type: COMMENTS_REQUEST,
-});
-
-export const commentshRequestSuccess = (post, comments) => ({
-  type: COMMENTS_REQUEST_SUCCESS,
-  post,
-  comments,
-});
-
-export const commentshRequestError = (error) => ({
-  type: COMMENTS_REQUEST_ERROR,
-  error,
-});
-
-export const commentsRequestAsync = (id) => (dispatch, getState) => {
-  const token = getState().tokenReducer.token;
-  if (!token) return;
-
-  axios(`${URL_API}/comments/${id}`, {
-    headers: {
-      Authorization: `bearer ${token}`,
-    },
-  })
-    .then(({data}) => {
-      const postData = data[0].data.children;
-      const comments = data[1].data.children;
-      const post = postData[0].data;
-      dispatch(commentshRequestSuccess(post, comments));
+    return axios(`${URL_API}/comments/${id}`, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
     })
-    .catch((err) => {
-      dispatch(commentshRequestError(err.message));
-    });
-};
+      .then(({data}) => {
+        const postData = data[0].data.children;
+        const comments = data[1].data.children;
+        const post = postData[0].data;
+        return {post, comments};
+      })
+      .catch((error) => ({error: error.toString()}));
+  },
+);

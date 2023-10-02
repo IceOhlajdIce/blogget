@@ -10,7 +10,8 @@ export const Post = ({postData}) => {
 
   return (
     <li className={style.post}>
-      <PostLogo thumbnail={thumbnail} title={title}/>
+      <PostLogo thumbnail={
+        thumbnail.startsWith('http') ? thumbnail : ''} title={title}/>
       <PostContent title={title} author={author} id={id}/>
       <PostRating ups={ups} />
       <PostDate date={date} />
