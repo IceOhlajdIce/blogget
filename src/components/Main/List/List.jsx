@@ -5,16 +5,18 @@ import {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {postsRequestAsync} from '../../../store/posts/action';
 import {Outlet, useParams} from 'react-router-dom';
+import {changePage} from '../../../store/posts/postsSlice';
 
 export const List = () => {
   const data = useSelector(state => state.postsReducer.data);
-  const loading = useSelector(state => state.postsReducer.loading);
+  const status = useSelector(state => state.postsReducer.status);
   const endList = useRef(null);
   const dispatch = useDispatch();
   const {page} = useParams();
 
   useEffect(() => {
-    dispatch(postsRequestAsync(page));
+    dispatch(changePage(page));
+    // dispatch(postsRequestAsync(page));
   }, [page]);
 
   useEffect(() => {
@@ -39,7 +41,7 @@ export const List = () => {
     <>
       <ul className={style.list}>
         {
-          loading ? (<Preloader loader='Fade' />) : (
+          status === 'loading' ? (<Preloader loader='Fade' />) : (
             data.length > 0 ? (
               data.map(({data}) => (
                 <Post key={data.id} postData={data} />
