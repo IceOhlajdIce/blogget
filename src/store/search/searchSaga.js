@@ -7,7 +7,7 @@ import {
   searchRequestSuccess
 } from './searchAction';
 
-function* fetchSearch(search) {
+function* fetchSearch({search}) {
   const token = yield select((state) => state.tokenReducer.token);
 
   try {
